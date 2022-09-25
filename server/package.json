@@ -1,0 +1,29 @@
+{
+  "name": "Nasa dashboard server",
+  "version": "1.0.0",
+  "description": "testing purpose",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "PORT=4000 nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "rest-api"
+  ],
+  "author": "Abdurrahim Ahmadov",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "hbs": "^4.2.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1"
+  }
+}
