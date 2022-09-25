@@ -1,0 +1,18 @@
+{
+  "name": "rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test --prefix server && npm run test --prefix client",
+    "server":"npm run watch --prefix server",
+    "watch":"npm run server & npm run client ",
+    "client":"npm run start --prefix client",
+    "install": "npm install --prefix server && npm install --prefix client",
+    "deploy": "npm run build --prefix client"
+
+  },
+  "keywords": [],
+  "author": "Abdurrahim Ahmadov",
+  "license": "ISC"
+}
