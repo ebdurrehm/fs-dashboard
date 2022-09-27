@@ -29,7 +29,27 @@ function saveLaunch (launch) {
   console.log(`launches ${JSON.stringify(Array.from(launches.values()))}`)
 }
 
+function checkLaunchExist (id) {
+  return launches.has(id)
+}
+
+function deleteLaunch (id) {
+  if (!checkLaunchExist(id)) {
+    return {
+      status: 'error',
+      message: 'this launch does not  exist'
+    }
+  } else {
+    launches.delete(id)
+    return {
+      status: 'ok',
+      message: 'deleted'
+    }
+  }
+}
+
 module.exports = {
   getAllLaunches,
-  saveLaunch
+  saveLaunch,
+  deleteLaunch
 }

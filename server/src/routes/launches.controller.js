@@ -1,6 +1,7 @@
 const {
   getAllLaunches,
-  saveLaunch
+  saveLaunch,
+  deleteLaunch
 } = require('../models/launches.model')
 
 function httpGetAllLaunches (req, res) {
@@ -29,7 +30,21 @@ function postLaunch (req, res) {
   }
 }
 
+function httpDeleteLaunch (req, res) {
+  const result = deleteLaunch(req.id)
+  if (result.status === 'error') {
+    res.status(400).json({
+      message: result.message
+    })
+  } else {
+    res.status(200).json({
+      message: result.message
+    })
+  }
+}
+
 module.exports = {
   httpGetAllLaunches,
-  postLaunch
+  postLaunch,
+  httpDeleteLaunch
 }
