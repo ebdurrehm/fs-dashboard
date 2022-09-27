@@ -33,14 +33,16 @@ function checkLaunchExist (id) {
   return launches.has(id)
 }
 
-function deleteLaunch (id) {
+function abortLaunch (id) {
   if (!checkLaunchExist(id)) {
     return {
       status: 'error',
       message: 'this launch does not  exist'
     }
   } else {
-    launches.delete(id)
+    const launch = launches.get(id)
+    launch.upcoming = false
+    launch.success = false
     return {
       status: 'ok',
       message: 'deleted'
@@ -51,5 +53,5 @@ function deleteLaunch (id) {
 module.exports = {
   getAllLaunches,
   saveLaunch,
-  deleteLaunch
+  abortLaunch
 }
