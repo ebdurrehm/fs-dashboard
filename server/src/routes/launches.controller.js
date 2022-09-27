@@ -1,7 +1,7 @@
 const {
   getAllLaunches,
   saveLaunch,
-  deleteLaunch
+  abortLaunch
 } = require('../models/launches.model')
 
 function httpGetAllLaunches (req, res) {
@@ -31,7 +31,7 @@ function postLaunch (req, res) {
 }
 
 function httpDeleteLaunch (req, res) {
-  const result = deleteLaunch(req.id)
+  const result = abortLaunch(req.id)
   if (result.status === 'error') {
     res.status(400).json({
       message: result.message
