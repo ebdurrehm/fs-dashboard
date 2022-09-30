@@ -10,7 +10,6 @@
     "client":"npm run start --prefix client",
     "install": "npm install --prefix server && npm install --prefix client",
     "deploy": "npm run build --prefix client"
-
   },
   "keywords": [],
   "author": "Abdurrahim Ahmadov",
