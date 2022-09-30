@@ -20,24 +20,24 @@ function postLaunch (req, res) {
       error: 'one of the launch properties is missed'
     })
   }
-  if (!isNaN(req.body.launchDate)) {
+  if (isNaN(new Date(req.body.launchDate))) {
     return res.status(400).json({
       error: 'invalid date format'
     })
   } else {
     saveLaunch(req.body)
-    res.status(200).json({ status: 'saved' })
+    res.status(201).json({ message: 'saved' })
   }
 }
 
 function httpDeleteLaunch (req, res) {
-  const result = abortLaunch(req.id)
+  const result = abortLaunch(+req.body.id)
   if (result.status === 'error') {
-    res.status(400).json({
+    return res.status(400).json({
       message: result.message
     })
   } else {
-    res.status(200).json({
+    return res.status(200).json({
       message: result.message
     })
   }
