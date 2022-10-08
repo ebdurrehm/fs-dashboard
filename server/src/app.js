@@ -3,9 +3,16 @@ const path = require('path')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const connectMongodb = require('../data/config/mongo.connection')
+const deployDataToDB = require('./models/planets.model')
 
 const planetRoutes = require('./routes/planets.routes')
 const launchRoutes = require('./routes/launches.routes')
+
+// connection to DB
+connectMongodb('mongodb://localhost:27017')
+
+deployDataToDB()
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'view'))
