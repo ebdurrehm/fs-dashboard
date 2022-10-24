@@ -1,14 +1,15 @@
-name: add label to issue
+name: issue-automation
+
 on:
-   issues:
-     types: [opened]
+  issues:
+    types: [opened]
+
 jobs:
-  add_label:
-     runs-on: ubuntu-latest
-     steps:
-       - name: add label to issue
-       - uses: andymckay/labeler@1.0.2
-         with:
-           add-labels: "triage, help-wanted"
-           ignore-if-labeled: true
+  automate-issues-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: andymckay/labeler@1.0.2
+        with:
+          add-labels: "needs-triage"
+          ignore-if-labeled: true
        
