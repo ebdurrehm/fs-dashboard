@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: andymckay/labeler@1.0.2
         with:
-          add-labels: "needs-triage"
+          add-labels: "needs-triage, help-wanted"
+          ignore-if-assigned: true
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
        
