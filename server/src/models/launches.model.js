@@ -1,53 +1,66 @@
-const launches = new Map()
-const crypto = require('crypto')
-const flightNumber = crypto.randomInt(1000)
 
-const launch = {
-  flightNumber: 101,
-  launchDate: new Date('February 23,2022'),
-  mission: 'exploring Mars',
-  rocket: 'Explorer IS1',
-  target: 'kapler 101',
-  customers: ['nasa', 'fbi'],
-  upcoming: true,
-  success: true
-}
-launches.set(launch.launchNumber, launch)
+const launches = require('../../data/models/launch.mongodb.model')
+const planets = require('../../data/models/planet.mongodb.model')
 
-function getAllLaunches () {
-  return Array.from(launches.values())
+async function getAllLaunches () {
+  return await launches.find({}, { _id: 0, __v: 0 })
 }
 
-function saveLaunch (launch) {
-  launches.set(flightNumber, {
-    ...launch,
-    upcoming: true,
-    success: true,
-    customers: ['NASA', 'AzerSpace'],
-    flightNumber
-  })
-  console.log(`launches ${JSON.stringify(Array.from(launches.values()))}`)
+async function saveLaunch (launch) {
+  if (await checkTargetExist(launch.target)) {
+    console.log(await checkTargetExist(launch.target))
+    return await saveLaunchToDb(launch)
+  } else {
+    return false
+  }
 }
 
-function checkLaunchExist (id) {
-  return launches.has(id)
+async function checkLaunchExist (id) {
+  const result = await launches.findOne({ flightNumber: id })
+  return !!result
 }
 
-function abortLaunch (id) {
-  if (!checkLaunchExist(id)) {
+async function abortLaunch (id) {
+  if (!await checkLaunchExist(id)) {
     return {
-      status: 'error',
-      message: 'this launch does not  exist'
+      message: 'this launch does not  exist',
+      status: 'error'
     }
   } else {
-    const launch = launches.get(id)
-    launch.upcoming = false
-    launch.success = false
+    await launches.findOneAndUpdate({ flightNumber: id }, {
+      upcoming: false,
+      success: false
+    })
     return {
       status: 'ok',
       message: 'deleted'
     }
   }
+}
+
+async function checkTargetExist (target) {
+  const result = await planets.findOne({ kepler_name: target })
+  return !!result
+}
+
+async function saveLaunchToDb (launch) {
+  try {
+    return await launches.updateOne({ mission: launch.mission }, {
+      flightNumber: await getLatestFlightNumber(),
+      customers: ['Nasa', 'Azerspace'],
+      success: true,
+      upcoming: true,
+      ...launch
+    }, { upsert: true })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function getLatestFlightNumber () {
+  const result = await launches.findOne({}).sort({ flightNumber: -1 })
+  console.log(result)
+  return result ? result.flightNumber + 1 : 100
 }
 
 module.exports = {
