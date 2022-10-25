@@ -4,7 +4,7 @@
   "description": "testing purpose",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --testEnvironment=node",
     "watch": "PORT=4000 nodemon src/server.js",
     "start": "node src/server.js"
   },
