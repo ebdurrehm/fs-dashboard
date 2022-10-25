@@ -8,8 +8,19 @@ async function connectMongodb (string) {
     })
     console.log('The connection to mongodb is established successfully')
   } catch (err) {
-    console.log(err)
+    console.err(err)
   }
 }
 
-module.exports = connectMongodb
+async function disconnectMongodb () {
+  try {
+    await mongoose.disconnect()
+  } catch (err) {
+    console.err(err)
+  }
+}
+
+module.exports = {
+  connectMongodb,
+  disconnectMongodb
+}
