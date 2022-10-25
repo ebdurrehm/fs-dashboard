@@ -14,8 +14,8 @@ function deployDataToDB () {
       skipComments: true
     })).on('data', async (data) => {
       if (isHabitablePlanet(data)) {
-        await planets.updateOne({ keplerName: data.kepler_name }, {
-          keplerName: data.kepler_name
+        await planets.updateOne({ kepler_name: data.kepler_name }, {
+          kepler_name: data.kepler_name
         }, { upsert: true })
       }
     }).on('error', (err) => {
