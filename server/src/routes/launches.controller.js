@@ -4,12 +4,11 @@ const {
   abortLaunch
 } = require('../models/launches.model')
 
-function httpGetAllLaunches (req, res) {
-  console.log(`controller launches ${getAllLaunches()}`)
-  res.status(200).json(getAllLaunches())
+async function httpGetAllLaunches (req, res) {
+  res.status(200).json(await getAllLaunches())
 }
 
-function postLaunch (req, res) {
+async function postLaunch (req, res) {
   if (
     !req.body.target ||
     !req.body.mission ||
@@ -24,9 +23,12 @@ function postLaunch (req, res) {
     return res.status(400).json({
       error: 'invalid date format'
     })
-  } else {
-    saveLaunch(req.body)
+  } else if (await saveLaunch(req.body)) {
     res.status(201).json({ message: 'saved' })
+  } else {
+    return res.status(500).json({
+      errorMessage: 'something went wrong'
+    })
   }
 }
 
