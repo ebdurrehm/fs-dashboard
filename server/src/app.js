@@ -10,7 +10,7 @@ const planetRoutes = require('./routes/planets.routes')
 const launchRoutes = require('./routes/launches.routes')
 
 // connection to DB
-connectMongodb('mongodb://localhost:27017')
+await connectMongodb('mongodb://localhost:27017')
 
 deployDataToDB()
 
