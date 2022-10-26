@@ -8,8 +8,9 @@ const {
 const deployDataToDB = require('../models/planets.model')
 describe('Launches tests', () => {
   beforeEach(async () => {
-    await connectMongodb('mongodb://localhost:27017')
-    deployDataToDB()
+    connectMongodb('mongodb://localhost:27017').then(() => {
+      deployDataToDB()
+    })
   })
 
   afterEach(async () => {
