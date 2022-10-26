@@ -10,9 +10,9 @@ const planetRoutes = require('./routes/planets.routes')
 const launchRoutes = require('./routes/launches.routes')
 
 // connection to DB
-await connectMongodb('mongodb://localhost:27017')
-
-deployDataToDB()
+connectMongodb('mongodb://localhost:27017').then(() => {
+  deployDataToDB()
+})
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'view'))
