@@ -8,21 +8,17 @@ jobs:
   build:
     env:
       CI: true
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-        mongodb-version: ['4.4']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        name: Use node.js version 16 ${{ matrix.node-version }}
+        name: Use node.js version 16
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ['16.x']
         name: MongoDB in GitHub Actions
       - uses: supercharge/mongodb-github-action@1.8.0
         with:
-          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-version: ['4.4']
 
       - run: npm install
       - run: npm run build --prefix client
