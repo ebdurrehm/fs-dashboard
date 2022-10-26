@@ -3,7 +3,7 @@ const path = require('path')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
-const connectMongodb = require('../data/config/mongo.connection')
+const { connectMongodb } = require('../data/config/mongo.connection')
 const deployDataToDB = require('./models/planets.model')
 
 const planetRoutes = require('./routes/planets.routes')
