@@ -7,12 +7,12 @@ const {
 } = require('../../data/config/mongo.connection')
 const deployDataToDB = require('../models/planets.model')
 describe('Launches tests', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await connectMongodb('mongodb://localhost:27017')
     deployDataToDB()
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await disconnectMongodb()
   })
   describe('test GET /launches', () => {
